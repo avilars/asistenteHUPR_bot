@@ -1,37 +1,31 @@
-# Imagen base limpia con Python
+# Imagen base ligera con Python
 FROM python:3.10-slim
 
 # Variables de entorno
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \
+    PORT=10000
 
-# Crear directorio de trabajo
-WORKDIR /app
-
-# Instalar dependencias del sistema necesarias
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential git curl && \
+    build-essential git && \
     rm -rf /var/lib/apt/lists/*
 
-# Copiar el proyecto
+# Copiar archivos
+WORKDIR /app
 COPY . /app
 
-# Instalar versión concreta de Rasa
-RUN pip install --no-cache-dir rasa==3.6.2
-
-# Instalar dependencias del proyecto
+# Instalar dependencias de Python
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Corregir compatibilidades
 RUN pip install --no-cache-dir "pydantic<1.10.10" "sqlalchemy<2.0"
 
-# Dar permisos de ejecución al script
+# Dar permisos al script
 RUN chmod +x /app/start.sh
 
 # Exponer el puerto
 EXPOSE 10000
 
-# Ejecutar directamente tu script
+# Entrypoint limpio
 ENTRYPOINT ["/bin/bash", "/app/start.sh"]
 
 
