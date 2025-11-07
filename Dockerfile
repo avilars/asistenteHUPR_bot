@@ -1,29 +1,33 @@
-# Imagen base de Rasa
+# Imagen base oficial de Rasa
 FROM rasa/rasa:3.6.2
 
-# Directorio de trabajo
+# Eliminar el ENTRYPOINT original ("rasa")
+ENTRYPOINT []
+
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar todo el contenido del proyecto al contenedor
+# Copiar los archivos del proyecto
 COPY . /app
 
-# Cambiar a usuario root para poder instalar paquetes
+# Cambiar a usuario root para instalar dependencias
 USER root
 
 # Instalar dependencias del proyecto
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Corregir incompatibilidades de versiones (SQLAlchemy y Pydantic)
+# Asegurar compatibilidad de dependencias
 RUN pip install --no-cache-dir "pydantic<1.10.10" "sqlalchemy<2.0"
 
-# Dar permisos de ejecución al script de arranque
+# Dar permisos al script de inicio
 RUN chmod +x /app/start.sh
 
-# Cambiar a usuario no root (requerido por Render)
+# Cambiar a usuario no root (Render lo requiere)
 USER 1001
 
-# Exponer el puerto del servidor Rasa
+# Exponer el puerto donde correrá Rasa
 EXPOSE 10000
 
-# 🔥 Sobrescribir el ENTRYPOINT del contenedor base (Rasa define "rasa" por defecto)
+# Definir el comando que ejecuta tu bot
 ENTRYPOINT ["/bin/bash", "/app/start.sh"]
+
