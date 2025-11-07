@@ -12,7 +12,7 @@ intents:
 responses:
   utter_bienvenida:
     - text: |
-        👋 Hola, soy tu asistente. 
+        👋 Hola, soy tu asistente.
         Estos son los procesos disponibles:
         1️⃣ Cáncer de mama  
         2️⃣ Mama benigna  
@@ -27,8 +27,8 @@ responses:
 
   utter_saludo:
     - text: |
-        👋 Bienvenida, soy tu asistente virtual de Ginecología del Hospital Universitario Puerto Real. 
-        Para empezar elige uno de los procesos disponibles:
+        👋 Bienvenida, soy tu asistente virtual de Ginecología del Hospital Universitario Puerto Real.  
+        Para empezar, elige uno de los procesos disponibles:
         1️⃣ Cáncer de mama  
         2️⃣ Mama benigna  
         3️⃣ Cáncer de endometrio  
@@ -36,19 +36,12 @@ responses:
         5️⃣ Cáncer de cérvix  
         6️⃣ Cáncer de vulva  
         7️⃣ Cirugía abdominal  
-        8️⃣ Conización  
-        9️⃣ Histeroscopia  
-        Escribe el número o nombre del proceso que quieras consultar.
 
   utter_despedida:
-    - text: "👋 ¡Hasta luego! Espero haberte ayudado."
+    - text: "👋 Gracias por tu consulta. ¡Hasta pronto!"
 
 actions:
-  - action_mostrar_temas
-  - action_mostrar_subtemas
-  - action_mostrar_contenido
-  - action_volver_menu
+  - utter_bienvenida
+  - utter_saludo
+  - utter_despedida
 
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
