@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-PORT=${PORT:-7860}
+set -e
 
-echo "[start.sh] Iniciando Rasa en PORT=${PORT} ..."
-exec rasa run \
-  --enable-api \
+PORT=${PORT:-10000}
+echo "[start.sh] Iniciando Rasa en el puerto ${PORT} ..."
+
+rasa run --enable-api \
   --cors "*" \
-  --port ${PORT} \
-  --host 0.0.0.0 \
+  --host "0.0.0.0" \
+  --port "${PORT}" \
   --endpoints endpoints.yml \
   --credentials credentials.yml

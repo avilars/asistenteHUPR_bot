@@ -1,25 +1,17 @@
-# Imagen base oficial de Rasa
-FROM rasa/rasa:3.6.2
+FROM python:3.10-slim
 
-# Cambiamos al usuario root para instalar dependencias
-USER root
+# Instala dependencias básicas
+RUN apt-get update && apt-get install -y gcc git && rm -rf /var/lib/apt/lists/*
 
-# Copiamos todo el contenido del bot
-COPY . /app
+# Copia los archivos al contenedor
 WORKDIR /app
+COPY . /app
 
-# Instalamos dependencias (sin romper las del sistema)
-RUN pip install --no-cache-dir --upgrade pip \
+# Instala Rasa y tus dependencias
+RUN pip install --no-cache-dir -U pip \
+ && pip install --no-cache-dir rasa==3.6.2 rasa-sdk==3.6.2 \
  && pip install --no-cache-dir -r requirements.txt || true
 
-# Damos permisos amplios (necesario en Hugging Face)
-RUN chmod -R 777 /app
+EXPOSE 10000
 
-# Exponemos el puerto estándar de Hugging Face
-EXPOSE 7860
-
-# Volvemos al usuario seguro
-USER 1001
-
-# Comando de arranque (usa start.sh que gestiona el puerto)
 CMD ["bash", "start.sh"]
