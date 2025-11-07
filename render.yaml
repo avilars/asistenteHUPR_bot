@@ -2,9 +2,13 @@ services:
   - type: web
     name: chatbot-mama-render
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: ./start.sh
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "./start.sh"
     plan: free
+    branch: main
+    autoDeploy: true
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
       - key: PORT
         value: 5005
