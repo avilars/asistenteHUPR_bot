@@ -14,18 +14,14 @@ __pycache__/
 env/
 venv/
 
-# Modelos intermedios, excepto los exportados .tar.gz
-models/*
-!models/*.tar.gz
-
-# Archivos de Rasa cache
+# Modelos y datos pesados (🔥 evita errores en Hugging Face)
+models/
 .rasa/
+*.tar.gz
+*.data-00000-of-00001
 
 # Archivos de VS Code
 .vscode/
 
-.venv/
-__pycache__/
-*.pyc
-*.log
+# Redundancias eliminadas (mantener limpio)
 
