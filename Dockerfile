@@ -1,33 +1,37 @@
-# Imagen base oficial de Rasa
-FROM rasa/rasa:3.6.2
+# Imagen base limpia con Python
+FROM python:3.10-slim
 
-# Eliminar el ENTRYPOINT original ("rasa")
-ENTRYPOINT []
+# Variables de entorno
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Establecer el directorio de trabajo
+# Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos del proyecto
+# Instalar dependencias del sistema necesarias
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential git curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar el proyecto
 COPY . /app
 
-# Cambiar a usuario root para instalar dependencias
-USER root
+# Instalar versión concreta de Rasa
+RUN pip install --no-cache-dir rasa==3.6.2
 
 # Instalar dependencias del proyecto
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Asegurar compatibilidad de dependencias
+# Corregir compatibilidades
 RUN pip install --no-cache-dir "pydantic<1.10.10" "sqlalchemy<2.0"
 
-# Dar permisos al script de inicio
+# Dar permisos de ejecución al script
 RUN chmod +x /app/start.sh
 
-# Cambiar a usuario no root (Render lo requiere)
-USER 1001
-
-# Exponer el puerto donde correrá Rasa
+# Exponer el puerto
 EXPOSE 10000
 
-# Definir el comando que ejecuta tu bot
+# Ejecutar directamente tu script
 ENTRYPOINT ["/bin/bash", "/app/start.sh"]
+
 
