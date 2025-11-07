@@ -25,3 +25,7 @@ models/
 
 # Redundancias eliminadas (mantener limpio)
 
+.rasa/
+*.tar.gz
+.rasa/
+*.tar.gz
