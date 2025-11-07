@@ -1,15 +1,22 @@
+# Imagen base de Rasa
 FROM rasa/rasa:3.6.2
 
+# Cambiamos a root
 USER root
 
-WORKDIR /app
+# Copiamos los archivos del bot
 COPY . /app
+WORKDIR /app
 
-# Instala dependencias adicionales
-RUN pip install --no-cache-dir -r requirements.txt || true
+# Instalamos dependencias necesarias
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir pydantic<1.10.10 sqlalchemy<2.0
+
+# Damos permisos al script
 RUN chmod +x /app/start.sh
 
-USER 1001
-
+# Exponemos el puerto que usará Render
 EXPOSE 10000
-ENTRYPOINT ["bash", "start.sh"]
+
+# Establecemos el comando de inicio (no ENTRYPOINT)
+CMD ["bash", "start.sh"]
