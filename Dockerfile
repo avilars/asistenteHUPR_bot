@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# Instala dependencias del sistema necesarias para compilar librerías de Rasa
+# Instala dependencias básicas del sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
@@ -10,20 +10,20 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Crea carpeta de trabajo
 WORKDIR /app
 COPY . /app
 
-# Instala pip y Rasa + SDK
+# Asegura versión moderna de pip
 RUN pip install --no-cache-dir -U pip
-RUN pip install --no-cache-dir rasa==3.6.2 rasa-sdk==3.6.2
 
-# Instala tus dependencias adicionales (opcional)
-RUN pip install --no-cache-dir -r requirements.txt || true
+# Instala Rasa y SDK globalmente (saltando restricciones del venv de Render)
+RUN pip install --no-cache-dir rasa==3.6.2 rasa-sdk==3.6.2 --break-system-packages || \
+    pip install --no-cache-dir rasa==3.6.2 rasa-sdk==3.6.2 --prefix /usr/local
 
-# Asegura permisos al script
+# Instala dependencias adicionales (sin romper si falla alguna)
+RUN pip install --no-cache-dir -r requirements.txt --break-system-packages || true
+
 RUN chmod +x start.sh
 
 EXPOSE 10000
-
 CMD ["bash", "start.sh"]
