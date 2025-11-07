@@ -4,11 +4,16 @@ services:
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "./start.sh"
-    plan: free
+    plan: free          # Puedes cambiar a 'starter' si quieres que no se duerma
     branch: main
     autoDeploy: true
+
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
-      - key: PORT
-        value: 5005
+
+    healthCheckPath: "/"
+    disk:
+      name: data
+      mountPath: /app
+      sizeGB: 1
