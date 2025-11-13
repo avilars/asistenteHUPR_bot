@@ -2,44 +2,51 @@ version: "3.1"
 
 intents:
   - saludar
+  - start
   - despedir
   - volver_menu
-  - start
   - seleccionar_proceso
   - seleccionar_tema
   - preguntar_subtema
   - afirmar
   - negar
-  - proporcionar_datos
   - fuera_de_tema
+  - proporcionar_datos
 
-entities: []
-
-slots: {}
+actions:
+  - action_mostrar_temas
+  - action_mostrar_subtemas
+  - action_mostrar_contenido
+  - action_volver_menu
 
 responses:
 
+  utter_bienvenida:
+    - text: "¡Hola! Soy el asistente del Servicio de Ginecología y Obstetricia. ¿En qué puedo ayudarte hoy?"
+
+  utter_saludo:
+    - text: "¡Hola! ¿Qué necesitas?"
+
   utter_saludar:
-    - text: "Hola 👋 ¿en qué puedo ayudarte?"
+    - text: "Hola, ¿cómo puedo ayudarte?"
+
+  utter_despedida:
+    - text: "¡Gracias por usar el asistente! Si necesitas algo más, aquí estoy."
 
   utter_despedir:
-    - text: "Gracias a ti 😊 Si necesitas algo más, aquí estoy."
-
-  utter_volver_menu:
-    - text: "Volvemos al menú principal. ¿Qué quieres consultar?"
+    - text: "Hasta luego. ¡Cuídate!"
 
   utter_start:
-    - text: "Hola 👋 soy tu asistente. ¿Sobre qué proceso quieres información?"
+    - text: "Vamos a empezar. ¿Qué proceso quieres consultar?"
+
+  utter_volver_menu:
+    - text: "Has vuelto al menú principal. Elige un proceso del 1 al 9."
 
   utter_fuera_de_tema:
-    - text: "Creo que eso no está relacionado con tu tratamiento. ¿Quieres volver al menú?"
+    - text: "Creo que esto no está relacionado. ¿Quieres volver al menú?"
 
   utter_preguntar_mas:
-    - text: "¿Qué más te gustaría saber?"
-
-actions:
-  - action_mostrar_contenido
-  - action_volver_menu
+    - text: "¿Quieres saber algo más sobre este tema?"
 
 session_config:
   session_expiration_time: 60
