@@ -2,46 +2,46 @@ version: "3.1"
 
 intents:
   - saludar
+  - despedir
+  - volver_menu
+  - start
   - seleccionar_proceso
   - seleccionar_tema
   - preguntar_subtema
-  - volver_menu
-  - despedir
-  - start
+  - afirmar
+  - negar
+  - proporcionar_datos
+  - fuera_de_tema
+
+entities: []
+
+slots: {}
 
 responses:
-  utter_bienvenida:
-    - text: |
-        👋 Hola, soy tu asistente.
-        Estos son los procesos disponibles:
-        1️⃣ Cáncer de mama  
-        2️⃣ Mama benigna  
-        3️⃣ Cáncer de endometrio  
-        4️⃣ Cáncer de ovario  
-        5️⃣ Cáncer de cérvix  
-        6️⃣ Cáncer de vulva  
-        7️⃣ Cirugía abdominal  
-        8️⃣ Conización  
-        9️⃣ Histeroscopia  
-        Escribe el número o nombre del proceso que quieras consultar.
 
-  utter_saludo:
-    - text: |
-        👋 Bienvenida, soy tu asistente virtual de Ginecología del Hospital Universitario Puerto Real.  
-        Para empezar, elige uno de los procesos disponibles:
-        1️⃣ Cáncer de mama  
-        2️⃣ Mama benigna  
-        3️⃣ Cáncer de endometrio  
-        4️⃣ Cáncer de ovario  
-        5️⃣ Cáncer de cérvix  
-        6️⃣ Cáncer de vulva  
-        7️⃣ Cirugía abdominal  
+  utter_saludar:
+    - text: "Hola 👋 ¿en qué puedo ayudarte?"
 
-  utter_despedida:
-    - text: "👋 Gracias por tu consulta. ¡Hasta pronto!"
+  utter_despedir:
+    - text: "Gracias a ti 😊 Si necesitas algo más, aquí estoy."
+
+  utter_volver_menu:
+    - text: "Volvemos al menú principal. ¿Qué quieres consultar?"
+
+  utter_start:
+    - text: "Hola 👋 soy tu asistente. ¿Sobre qué proceso quieres información?"
+
+  utter_fuera_de_tema:
+    - text: "Creo que eso no está relacionado con tu tratamiento. ¿Quieres volver al menú?"
+
+  utter_preguntar_mas:
+    - text: "¿Qué más te gustaría saber?"
 
 actions:
-  - utter_bienvenida
-  - utter_saludo
-  - utter_despedida
+  - action_mostrar_contenido
+  - action_volver_menu
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
 
