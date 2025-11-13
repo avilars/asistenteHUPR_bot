@@ -1,6 +1,7 @@
 version: "3.1"
 
 nlu:
+
 # ====== Saludos / cierre / volver ======
 - intent: saludar
   examples: |
@@ -41,11 +42,12 @@ nlu:
 - intent: start
   examples: |
     - /start
-    - hola
-    - buenas
     - quiero empezar
+    - empezar
+    - iniciar
+    - quiero comenzar
 
-# ====== Procesos (1..9) por número, emoji, y nombre con/sin tildes ======
+# ====== Procesos (1..9) por número, emoji y nombre ======
 - intent: seleccionar_proceso
   examples: |
     # números "limpios"
@@ -81,7 +83,7 @@ nlu:
     - 7️⃣
     - 8️⃣
     - 9️⃣
-    # por nombre (todas variantes comunes)
+    # por nombre de proceso
     - cáncer de mama
     - cancer de mama
     - Cáncer de mama
@@ -99,182 +101,84 @@ nlu:
     - CANCER DE OVARIO
     - cáncer de cérvix
     - cancer de cervix
-    - Cáncer de cérvix
-    - CANCER DE CERVIX
-    - cáncer de vulva
-    - cancer de vulva
-    - Cáncer de vulva
-    - CANCER DE VULVA
-    - cirugía abdominal
-    - cirugia abdominal
-    - Cirugía abdominal
-    - CIRUGIA ABDOMINAL
-    - conización
-    - conizacion
-    - Conización
-    - CONIZACION
-    - histeroscopia
-    - Histeroscopia
-    - HISTEROSCOPIA
+    - cancer cervix
+    - cáncer de cuello de útero
+    - cuello de útero
 
-# ====== Temas dentro del proceso (1.1, 2.1, 3.1, 7.1, 8.1, 9.1…) y por nombre ======
+# ====== Intent para seleccionar temas ======
 - intent: seleccionar_tema
   examples: |
-    # Por código corto (todas las familias que tienes en el JSON/Excel)
-    - 1.1
-    - 1.2
-    - 1.3
-    - 1.4
-    - 1.5
-    - 1.6
-    - 1.7
-    - 1.8
-    - 1.9
-    - 1.10
-    - 1.11
-    - 2.1
-    - 2.2
-    - 2.3
-    - 2.4
-    - 2.5
-    - 2.6
-    - 2.7
-    - 3.1
-    - 3.2
-    - 3.3
-    - 3.4
-    - 3.5
-    - 7.1
-    - 7.2
-    - 7.3
-    - 7.4
-    - 8.1
-    - 8.2
-    - 9.1
-    - 9.2
-    # Variantes coloquiales de selección
-    - tema 1.1
-    - opcion 1.1
-    - opción 1.1
-    - el 1.1
-    - elegir 1.1
-    # Por nombre de tema (sin depender del proceso)
-    - herida
-    - drenajes
-    - dolor
-    - ejercicios
-    - linfedema
-    - sujetador
-    - prótesis
-    - protesis
-    - cicatriz
-    - vida diaria
-    - apoyo emocional
-    - tratamientos adyuvantes
-    - sintomatología
-    - dudas
-    - puedo bañarme
-    - dudas antes de la intervención
-    - dudas del día antes
-    - dudas del día después
+    - anticoncepción
+    - lactancia
+    - cirugía
+    - preparación
+    - seguimiento
+    - cuidados
+    - medicación
+    - riesgos
+    - complicaciones
+    - síntomas
+    - efectos secundarios
 
-# ====== Preguntas / subtemas profundos (1.1.1, 1.1.2, 1.2.1, …) y enunciados aproximados ======
+# ====== Preguntar por subtemas ======
 - intent: preguntar_subtema
   examples: |
-    # Códigos habituales (ejemplos representativos de todas las ramas)
-    - 1.1.1
-    - 1.1.2
-    - 1.2.1
-    - 1.2.2
-    - 1.2.4.1
-    - 1.3.1
-    - 1.4.1
-    - 1.5.1
-    - 1.6.1
-    - 1.7.1
-    - 1.8.1
-    - 1.9.1
-    - 1.10.1
-    - 1.11.1
-    - 2.1.1
-    - 2.2.1
-    - 2.3.1
-    - 2.4.1
-    - 2.5.1
-    - 2.6.1
-    - 2.7.1
-    - 3.1.1
-    - 3.2.1
-    - 3.3.1
-    - 3.4.1
-    - 3.5.1
-    - 7.1.1
-    - 7.1.2
-    - 7.2.1
-    - 7.3.1
-    - 7.4.1
-    - 8.1.1
-    - 8.2.1
-    - 9.1.1
-    - 9.1.2
-    - 9.1.3
-    - 9.1.4
-    - 9.1.5
-    - 9.1.6
-    - 9.1.7
-    - 9.2.1
-    # Formas coloquiales / enunciados aproximados
-    - como cuido la herida
-    - ¿cómo cuido la herida?
-    - información sobre el drenaje
-    - info del drenaje
-    - qué puedo tomar para el dolor
-    - que puedo tomar para el dolor
-    - qué ejercicios puedo hacer
-    - ejercicios recomendados
-    - cómo prevenir o manejar el linfedema
-    - como prevenir el linfedema
-    - qué sujetador debo usar
-    - prótesis externa
-    - necesito una prótesis externa
-    - cómo cuido la cicatriz o la piel
-    - cuidados de la cicatriz
-    - cuándo puedo retomar mi vida diaria
-    - cuando retomo mi vida diaria
-    - creo que necesito ayuda psicológica
-    - dudas con la radioterapia
-    - son mis síntomas normales
-    - tengo dudas sobre el día antes de la intervención
-    - dudas del día después
-    - puedo bañarme
-    # variantes semánticas cortas
-    - cuidados herida
-    - registrar drenaje
-    - dolor que tomar
-    - ejercicios después de cirugía
-    - prevención linfedema
-    - sujetador recomendado
-    - cuidado cicatriz
-    - volver a la vida normal
     - apoyo emocional
-    - radioterapia dudas
-    - síntomas normales
-    - día antes histeroscopia
-    - día después histeroscopia
+    - puedo bañarme
+    - dudas del día después
+    - qué debo hacer
+    - qué me recomiendas
+    - necesito más información
+    - cuéntame más
+    - explícamelo
+    - tengo otra duda
+    - cómo funciona eso
+    - quiero saber más sobre esto
+    - no lo entiendo
+    - explícame mejor
 
-# ====== Patrones (regex) que refuerzan números y códigos ======
-- regex: codigo_proceso
+# ====== Afirmaciones ======
+- intent: afirmar
   examples: |
-    - \b0?[1-9]\b
+    - sí
+    - claro
+    - por supuesto
+    - correcto
+    - afirmativo
+    - exacto
+    - sí quiero
+    - me parece bien
 
-- regex: codigo_tema
+# ====== Negaciones ======
+- intent: negar
   examples: |
-    - \b[1-9]\.(?:\d{1,2})\b
+    - no
+    - no quiero
+    - no gracias
+    - mejor no
+    - prefiero que no
 
-- regex: codigo_pregunta
+# ====== Datos personales / información ======
+- intent: proporcionar_datos
   examples: |
-    - \b[1-9](?:\.\d{1,2}){2,5}\b
+    - tengo 30 años
+    - tengo 40 años
+    - mi edad es 28
+    - mi fecha de cirugía es mañana
+    - mi intervención es el lunes
+    - peso 60 kilos
+    - mido 1.60
+    - tengo fiebre
+    - tengo dolor
+    - sangro un poco
 
-- regex: digito_emoji
+# ====== Otros ======
+- intent: fuera_de_tema
   examples: |
-    - [\u0030-\u0039]\uFE0F?\u20E3
+    - qué tiempo hace hoy
+    - quién ganó el partido
+    - cuéntame un chiste
+    - dime algo
+    - no tiene nada que ver
+    - otra cosa diferente
+
